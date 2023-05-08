@@ -2,22 +2,26 @@
 <html>
   <head>
     <title>My Website</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-      $(document).ready(function () {
-        var webhookUrl = "https://discord.com/api/webhooks/1105220106008657941/JSyjWT_kthQwoAzgEaLx4RIYwajBYqLhZ4wL4_3fd1BXfsgOIF3kS0hBnbS19rf7IxGm";
-        $.ajax({
-          type: "POST",
-          url: webhookUrl,
-          data: JSON.stringify({ content: "Someone visited my website!" }),
-          success: function () {
+      function sendWebhook() {
+        var xhttp = new XMLHttpRequest();
+        var url = "https://discord.com/api/webhooks/1105220106008657941/JSyjWT_kthQwoAzgEaLx4RIYwajBYqLhZ4wL4_3fd1BXfsgOIF3kS0hBnbS19rf7IxGm";
+        var params = JSON.stringify({ content: "Someone visited my website!" });
+        xhttp.open("POST", url, true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 204) {
             console.log("Message sent successfully!");
-          },
-          error: function (xhr, status, error) {
-            console.error(xhr.responseText);
-          },
-        });
-      });
+          } else if (this.readyState == 4 && this.status != 204) {
+            console.error("Error sending message: " + xhttp.responseText);
+          }
+        };
+        xhttp.send(params);
+      }
+
+      window.onload = function () {
+        sendWebhook();
+      };
     </script>
   </head>
   <body>
