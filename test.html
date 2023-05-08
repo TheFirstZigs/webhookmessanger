@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Website</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        var webhookUrl = "https://discord.com/api/webhooks/1105220106008657941/JSyjWT_kthQwoAzgEaLx4RIYwajBYqLhZ4wL4_3fd1BXfsgOIF3kS0hBnbS19rf7IxGm";
+        $.ajax({
+          type: "POST",
+          url: webhookUrl,
+          data: JSON.stringify({ content: "Someone visited my website!" }),
+          success: function () {
+            console.log("Message sent successfully!");
+          },
+          error: function (xhr, status, error) {
+            console.error(xhr.responseText);
+          },
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Welcome to my website</h1>
+  </body>
+</html>
