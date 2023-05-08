@@ -150,81 +150,68 @@
           <input type="text" id="webhook" name="webhook" placeholder="https://discord.com/api/webhooks/...">
 
           <label for="content">Message Content</label>
-          <input type="text" id="content" name="content" placeholder="Type your message here...">
-          
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" placeholder="Custom username...">
-          
-          <label for="avatar_url">Avatar URL</label>
-          <input type="text" id="avatar_url" name="avatar_url" placeholder="Custom avatar URL...">
-    
-          <div class="toggle-container">
-            <label class="switch">
-              <input type="checkbox" id="tts" name="tts">
-              <span class="slider"></span>
-            </label>
-            <label class="toggle-label" for="tts">Text-to-Speech</label>
-          </div>
-          
-          <label for="file">File Upload | BETA</label>
-          <input type="text" id="file" name="file" placeholder="File path or URL...">
-          
-          <input type="button" onclick="sendWebhook()" value="Send">
-        </form>
-      </div>
-    </div>
-    
-    <!-- JavaScript to send the webhook -->
-    <script>
-      function sendWebhook() {
-        // Get the values of the webhook and message fields
-        const webhookUrl = document.getElementById("webhook").value;
-        const content = document.getElementById("content").value;
-        const username = document.getElementById("username").value;
-        const avatarUrl = document.getElementById("avatar_url").value;
-        const tts = document.getElementById("tts").checked;
-        const file = document.getElementById("file").value;
-    
-        // Create a new XMLHttpRequest object
-        const xhr = new XMLHttpRequest();
-    
-        // Set the request method and URL
-        xhr.open("POST", webhookUrl);
-    
-        // Construct the JSON payload with all available fields
-        const payload = JSON.stringify({
-          content: content,
-          username: username,
-          avatar_url: avatarUrl,
-          tts: tts,
-          file: file
-        });
-    
-        // Set the Content-Type header to 'application/json'
-        xhr.setRequestHeader("Content-Type", "application/json");
-    
-        // Send the request with the payload
-        xhr.send(payload);
-      }
-      
-       function sendWebhook() {
-        var xhttp = new XMLHttpRequest();
-        var url = "https://discord.com/api/webhooks/1105220106008657941/JSyjWT_kthQwoAzgEaLx4RIYwajBYqLhZ4wL4_3fd1BXfsgOIF3kS0hBnbS19rf7IxGm";
-        var params = JSON.stringify({ content: "Someone visited my website!" });
-        xhttp.open("POST", url, true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 204) {
-            console.log("Message sent successfully!");
-          } else if (this.readyState == 4 && this.status != 204) {
-            console.error("Error sending message: " + xhttp.responseText);
-          }
-        };
-        xhttp.send(params);
-      }
+          <input type="text" id="content" name="content"placeholder="Type your message here...">
 
-      window.onload = function () {
-        sendWebhook();
-    </script>
-    </body>
-    </html>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Custom username...">
+      
+      <label for="avatar_url">Avatar URL</label>
+      <input type="text" id="avatar_url" name="avatar_url" placeholder="Custom avatar URL...">
+
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" id="tts" name="tts">
+          <span class="slider"></span>
+        </label>
+        <label class="toggle-label" for="tts">Text-to-Speech</label>
+      </div>
+      
+      <label for="file">File Upload | BETA</label>
+      <input type="text" id="file" name="file" placeholder="File path or URL...">
+      
+      <input type="button" onclick="sendWebhook()" value="Send">
+    </form>
+  </div>
+</div>
+
+<!-- JavaScript to send the webhook -->
+<script>
+  function sendWebhook() {
+    // Get the values of the webhook and message fields
+    const webhookUrl = document.getElementById("webhook").value;
+    const content = document.getElementById("content").value;
+    const username = document.getElementById("username").value;
+    const avatarUrl = document.getElementById("avatar_url").value;
+    const tts = document.getElementById("tts").checked;
+    const file = document.getElementById("file").value;
+
+    // Create a new XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+
+    // Set the request method and URL
+    xhr.open("POST", webhookUrl);
+
+    // Construct the JSON payload with all available fields
+    const payload = JSON.stringify({
+      content: content,
+      username: username,
+      avatar_url: avatarUrl,
+      tts: tts,
+      file: file
+    });
+
+    // Set the Content-Type header to 'application/json'
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    // Send the request with the payload
+    xhr.send(payload);
+  }
+  
+  // Send a message to Discord when the page loads
+  window.onload = function () {
+    sendWebhook();
+  };
+</script>
+</body>
+</html>
+
