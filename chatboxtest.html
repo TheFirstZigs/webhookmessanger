@@ -51,6 +51,22 @@
 	<script>
 		var chatBox = document.getElementById("chat");
 		
+		// Function to load the chat messages from the server
+		function loadMessages() {
+			var xmlhttp = new XMLHttpRequest();
+			
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					chatBox.innerHTML = xmlhttp.responseText;
+					chatBox.scrollTop = chatBox.scrollHeight;
+				}
+			};
+			
+			xmlhttp.open("GET", "getmessages.php", true);
+			xmlhttp.send();
+		}
+		
+		// Function to send a message to the server and add it to the chat
 		function sendMessage() {
 			var messageInput = document.getElementById("message");
 			var message = messageInput.value;
@@ -60,15 +76,27 @@
 				return;
 			}
 			
-			var messageElement = document.createElement("div");
-			messageElement.style.padding = "5px";
-			messageElement.style.borderBottom = "1px solid #CCCCCC";
-			messageElement.innerText = message;
-			chatBox.appendChild(messageElement);
+			var xmlhttp = new XMLHttpRequest();
+			
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					loadMessages();
+				}
+			};
+			
+			xmlhttp.open("POST", "addmessage.php", true);
+			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xmlhttp.send("message="+message);
 			
 			messageInput.value = "";
 			messageInput.focus();
 		}
+		
+		// Load the chat messages on page load
+		window.onload = function() {
+			loadMessages();
+			setInterval(loadMessages, 5000); // Refresh the messages every 5 seconds
+		};
 	</script>
 </body>
 </html>
