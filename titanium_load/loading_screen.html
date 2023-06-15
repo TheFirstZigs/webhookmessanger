@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titanium Networks</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+        * {
+            margin: 0 0 0 0;
+            padding: 0 0 0 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #151515;
+        }
+
+        .title {
+            color: #FFF;
+            /* margin-top: 2.5%; */
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            height: fit-content;
+            text-align: center;
+            padding-left: auto;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .image {
+            height: 200px;
+            width: 200px;
+            margin-top: 15%;
+            position: relative;
+            margin-left: calc(50% - 100px);
+            /* margin-right: auto; */
+        }
+
+        .button_array {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: fit-content;
+            width: 50vw;
+            flex-grow: 1 0 calc(33% - 1%);
+            flex-wrap: wrap;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: auto;
+            padding-top: auto;
+        }
+
+        .loading_icons {
+            display: flex;
+            height: 10vh;
+            margin-top: 5vh;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .loading_icons>div{
+            background-color: #FFF;
+            width: .75vw;
+            height: .75vw;
+            border-radius:  .75vw;
+            /* margin-right: 1vw; */
+            /* margin-left: 1vw; */
+        }
+    </style>
+
+</head>
+
+<body>
+    <img class="image" id="logo_spin" src="logoface2.png" />
+    <h1 class="title">You're loading into<br>Titanium Networks</h1>
+
+    <div class="loading_icons" id="loading_animation">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <script>
+
+        window.onload = () => {
+            const loading = document.getElementById("loading_animation").children;
+            const icon = document.getElementById("logo_spin");
+            let curSpin = 0;
+            let decrement = false;
+            setInterval(() => {
+                icon.style.transform = `rotate(${Date.now() / 25 % 360}deg)`
+
+                curSpin += (decrement ? -1 : 1);
+                for(let i = 0; i < loading.length; i++){
+                    if(i == 3) continue;
+
+                    const icon = loading[i];
+                    icon.style[`margin-${ i > 3 ? "left" : "right"}`] = `${(curSpin/ 25) }vw`
+                }
+                if(curSpin > 50) {
+                    decrement = true
+                }else if(curSpin < 0){
+                    decrement = false
+                }
+            }, 1);
+        }
+
+
+    </script>
+</body>
+
+</html>
